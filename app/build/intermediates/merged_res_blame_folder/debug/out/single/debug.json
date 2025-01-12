@@ -1,0 +1,98 @@
+[
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\drawable_checkcircle.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\drawable\\checkcircle.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.projet_tdm.app-merged_res-37:/drawable_confirm.xml.flat",
+        "source": "com.example.projet_tdm.app-main-39:/drawable/confirm.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.projet_tdm.app-merged_res-37:/drawable_complete.xml.flat",
+        "source": "com.example.projet_tdm.app-main-39:/drawable/complete.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-anydpi-v33\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\font_montserrat_regular.ttf.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\font\\montserrat_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\drawable_delivery.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\drawable\\delivery.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "com.example.projet_tdm.app-merged_res-37:/drawable_delivered.xml.flat",
+        "source": "com.example.projet_tdm.app-main-39:/drawable/delivered.xml"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\font_montserrat_semibold.ttf.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\font\\montserrat_semibold.ttf"
+    },
+    {
+        "merged": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-merged_res-37:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ly_be\\.gradle\\daemon\\7.5\\com.example.projet_tdm.app-main-39:\\mipmap-hdpi\\ic_launcher.webp"
+    }
+]
