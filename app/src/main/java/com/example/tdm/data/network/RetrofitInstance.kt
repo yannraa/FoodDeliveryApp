@@ -1,15 +1,15 @@
 package com.example.tdm.data.network
+
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.100.2:1337/api/" // Remplace par l'URL de ton API
+    private const val BASE_URL = "https://tf62hnqf-1337.euw.devtunnels.ms/api/"// Remplace par l'URL de ton API
 
-
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+   /* private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY // Affiche les corps des requêtes et réponses
-    }
+    }*/
 
     val api: ApiService by lazy {
         Retrofit.Builder()

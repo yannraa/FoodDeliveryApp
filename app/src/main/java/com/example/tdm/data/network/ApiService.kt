@@ -1,6 +1,7 @@
 package com.example.tdm.data.network
 
 import com.example.tdm.data.model.*
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,4 +18,7 @@ interface ApiService {
 
     @GET("orders?populate[0]=restaurant")
     suspend fun getOrders(): AllOrdersDataResponse
+    // Endpoint pour l'inscription
+    @POST("auth/local/register")
+    suspend fun signUp(@Body signUpRequest: SignUpRequest):SignUpResponse
 }
