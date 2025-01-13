@@ -16,6 +16,7 @@ import com.example.tdm.ui.screens.cart.CartViewModel
 import com.example.tdm.ui.screens.cart.CartViewModelFactory
 import com.example.tdm.ui.screens.home.HomeScreen
 import com.example.tdm.ui.screens.login.LoginScreen
+import com.example.tdm.ui.screens.signup.SignUpScreen
 import com.example.tdm.ui.screens.restaurants.*
 
 @Composable
@@ -32,6 +33,15 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 repository = restaurantRepository
             )
         }
+        // Écran d'inscription
+        composable("signup") {
+            SignUpScreen(
+                repository = authRepository,
+                navController = navController,
+                context = LocalContext.current
+            )
+        }
+
         composable("login") { LoginScreen(authRepository, navController, LocalContext.current) }
         composable("restaurantDetails") {
             val restaurant = navController.previousBackStackEntry
