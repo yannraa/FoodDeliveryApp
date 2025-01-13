@@ -3,10 +3,12 @@ package com.example.tdm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.example.tdm.data.network.ApiService
 import com.example.tdm.data.network.RetrofitInstance
@@ -61,7 +63,8 @@ class MainActivity : ComponentActivity() {
                         authRepository = authRepository,
                         restaurantRepository = restaurantRepository,
                         orderRepository = orderRepository,
-                        modifier = Modifier.padding(paddingValues)
+                        modifier = Modifier.padding(paddingValues).background(color = Color(0xffECECE3))
+
                     )
                 }
             }

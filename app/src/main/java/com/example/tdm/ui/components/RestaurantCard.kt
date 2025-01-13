@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.tdm.data.model.Restaurant
 
@@ -27,40 +29,40 @@ fun RestaurantCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
-            .clickable { onCardClick(restaurant) },
+            .clickable{ onCardClick(restaurant) },
         shape = RoundedCornerShape(10),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
+        colors = CardColors(
+            containerColor = Color.White,
+            contentColor = Color.Unspecified,
+            disabledContainerColor = Color.Unspecified,
+            disabledContentColor = Color.Unspecified
         ),
-    ) {
+
+        ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.padding(12.dp)
         ) {
-            // Restaurant Image (via URL avec Coil)
             Image(
                 painter = rememberAsyncImagePainter(restaurant.imageUrl),
-                contentDescription = "Restaurant Image",
+                contentDescription = null,
                 modifier = Modifier
                     .height(100.dp)
                     .width(160.dp)
                     .clip(RoundedCornerShape(10)),
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Crop ,// Remplir l'espace de l'image
             )
-
-            // Restaurant Details
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
+            Column( verticalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .padding(start = 12.dp)
                     .fillMaxHeight()
-                    .padding(vertical = 8.dp)
-            ) {
+                    .padding(vertical = 8.dp)) {
                 Column {
                     Text(
                         text = restaurant.name,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall.copy(fontSize = 20.sp),
+//                        style = MaterialTheme.typography.titleMedium
                     )
                     Text(
                         text = restaurant.address,
@@ -68,20 +70,19 @@ fun RestaurantCard(
                         color = Color(0xff696969)
                     )
                 }
-
-                Row(
+                Row (
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
-                ) {
-                    // Distance
-                    Row(
+                ){
+
+                    Row (
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(2.dp)
-                    ) {
+                    ){
                         Icon(
-                            imageVector = Icons.Default.LocationOn,
-                            contentDescription = "Location Icon",
+                            imageVector = Icons.Default.LocationOn, // Replace with your location icon
+                            contentDescription = "Location",
                             modifier = Modifier.size(18.dp),
                         )
                         Text(
@@ -90,13 +91,14 @@ fun RestaurantCard(
                         )
                     }
 
-                    // Rating
                     Text(
-                        text = "${restaurant.rating} ⭐ (${restaurant.reviewCount} reviews)",
+                        text = "${restaurant.rating} ⭐ (${restaurant.reviewCount}+)",
                         fontWeight = FontWeight.SemiBold,
-                    )
+
+                        )
                 }
             }
+
         }
     }
 }
