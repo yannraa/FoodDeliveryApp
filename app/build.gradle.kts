@@ -60,8 +60,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
