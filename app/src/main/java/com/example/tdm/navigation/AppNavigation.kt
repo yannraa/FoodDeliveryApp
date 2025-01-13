@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.tdm.data.model.OrderStatus
 import com.example.tdm.data.model.Restaurant
 import com.example.tdm.data.repository.*
 import com.example.tdm.ui.screens.cart.CartScreen
@@ -16,7 +17,10 @@ import com.example.tdm.ui.screens.cart.CartViewModel
 import com.example.tdm.ui.screens.cart.CartViewModelFactory
 import com.example.tdm.ui.screens.home.HomeScreen
 import com.example.tdm.ui.screens.login.LoginScreen
+import com.example.tdm.ui.screens.orders.OrdersScreen
+import com.example.tdm.ui.screens.signup.SignUpScreen
 import com.example.tdm.ui.screens.restaurants.*
+import com.example.tdm.ui.screens.tracking.OrderTrackingScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier, restaurantRepository: RestaurantRepository, authRepository: AuthRepository, orderRepository: OrderRepository) {
@@ -32,6 +36,18 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 repository = restaurantRepository
             )
         }
+        composable("order") {
+            OrdersScreen(navController = navController, repository = orderRepository)
+        }
+        // Écran d'inscription
+        composable("signup") {
+            SignUpScreen(
+                repository = authRepository,
+                navController = navController,
+                context = LocalContext.current
+            )
+        }
+
         composable("login") { LoginScreen(authRepository, navController, LocalContext.current) }
         composable("restaurantDetails") {
             val restaurant = navController.previousBackStackEntry
@@ -42,6 +58,22 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
         composable("cart") {
             CartScreen(viewModel = cartViewModel, navController = navController)
+        }
+        composable(
+            route = "orderTracking/{deliveryAddress}/{currentOrderStatus}",
+            arguments = listOf(
+                navArgument("deliveryAddress") { type = NavType.StringType },
+                navArgument("currentOrderStatus") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val deliveryAddress = backStackEntry.arguments?.getString("deliveryAddress") ?: ""
+            val currentOrderStatusString = backStackEntry.arguments?.getString("currentOrderStatus") ?: ""
+            val currentOrderStatus = OrderStatus.valueOf(currentOrderStatusString)
+
+            OrderTrackingScreen(
+                deliveryAddress = deliveryAddress,
+                currentOrderStatus = currentOrderStatus
+            )
         }
         composable(
             route = "itemDetails/{itemId}/{itemName}/{itemPrice}/{restaurantName}/{restaurantId}",
