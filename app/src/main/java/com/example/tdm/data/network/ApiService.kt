@@ -14,4 +14,7 @@ interface ApiService {
 
     @POST("orders?populate[0]=restaurant")
     suspend fun createOrder(@Body orderRequest: OrderDataRequest): OrderDataResponse
+
+    @GET("orders?populate[0]=restaurant")
+    suspend fun getOrders(): AllOrdersDataResponse
 }
