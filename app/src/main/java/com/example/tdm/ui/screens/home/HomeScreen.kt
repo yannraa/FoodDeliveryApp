@@ -298,7 +298,6 @@ fun RestaurantNearbyList(
 ) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(horizontal = 8.dp)
     ) {
         items(nearbyRestaurants) { restaurant ->
             RestaurantNearbyCard(restaurant)

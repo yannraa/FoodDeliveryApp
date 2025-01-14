@@ -2,6 +2,7 @@ package com.example.tdm.ui.screens.restaurants
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -38,6 +39,7 @@ import com.example.tdm.data.model.Restaurant
 
 @Composable
 fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController) {
+    val IsOpen : Boolean = false
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,20 +55,20 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
                     .height(200.dp),
                 contentScale = ContentScale.Crop
             )
-            IconButton(
-                onClick = { /* TODO: Handle back navigation */ },
+            androidx.compose.material3.IconButton(
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .padding(16.dp)
                     .size(40.dp)
                     .background(
-                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+                        color = Color.White,
                         shape = CircleShape
                     )
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back Button",
-                    tint = MaterialTheme.colorScheme.onSurface
+                androidx.compose.material3.Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back Icon",
+                    tint = Color.Black
                 )
             }
         }
@@ -76,15 +78,30 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
         // Restaurant details
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             Text(
-                text = restaurant.name,
-                style = MaterialTheme.typography.headlineSmall,
+                text = "${restaurant.name}",
+                style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "${restaurant.address}",
+                text = "Gastro · ${restaurant.address}",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color = Color.DarkGray
             )
+            if (IsOpen) {
+                Text(
+                    text = "Open",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFF4CAF50) // Green color for "Opening"
+                )
+            }else{
+                Text(
+                    text = "Closed",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Red // Green color for "Opening"
+                )
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -94,23 +111,19 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "${restaurant.rating} ⭐",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "(${restaurant.reviewCount})",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                    )
-                }
+                Text(
+                    text = "⭐ ${restaurant.rating} (${restaurant.reviewCount}+)",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.DarkGray
+                )
+                Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = "Reviews",
-                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold
+                    color = Color(0xFFFF5722), // Orange for "Reviews"
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable { /* Navigate to reviews */ }
+
                 )
             }
 
@@ -126,12 +139,12 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
                     imageVector = Icons.Default.Phone,
                     contentDescription = "Phone Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(text = restaurant.contact, style = MaterialTheme.typography.bodySmall)
 
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(18.dp))
 
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -150,12 +163,10 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
         Text(
             text = "Menu",
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp).align(Alignment.CenterHorizontally),
             fontWeight = FontWeight.Bold
         )
-
         Spacer(modifier = Modifier.height(8.dp))
-
         // Group items by category and display
         val groupedMenu = restaurant.menu.groupBy { it.category }
         groupedMenu.forEach { (category, items) ->
@@ -186,7 +197,7 @@ fun MenuItemCard(item: MenuItem, onItemClick: (MenuItem) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 4.dp).clickable { onItemClick(item)  },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
@@ -198,13 +209,17 @@ fun MenuItemCard(item: MenuItem, onItemClick: (MenuItem) -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = item.name, style = MaterialTheme.typography.bodyMedium)
+                Text(text = item.name, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                 Text(
                     text = "$${item.price}",
-                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.primary)
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color(0xFFFF5722),
+                    fontWeight = FontWeight.Medium
                 )
             }
-            IconButton(onClick = { onItemClick(item) }) {
+            IconButton(
+                onClick = { /* */}
+            ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add to cart"
