@@ -36,7 +36,6 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         // Title
@@ -51,7 +50,6 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Go Back",
-                    tint = MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -60,8 +58,7 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
             // Titre "My Cart"
             Text(
                 text = "My cart",
-                style = MaterialTheme.typography.titleMedium, // Typographie existante conservée
-                color = MaterialTheme.colorScheme.onBackground
+                style = MaterialTheme.typography.titleLarge, // Typographie existante conservée
             )
         }
 
@@ -70,7 +67,7 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
-                .padding(bottom = 16.dp)
+                .padding(bottom = 10.dp)
         ) {
             items(cartItems) { cartItem ->
                 CartItemRow(
@@ -81,11 +78,12 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
                 )
             }
         }
-
+        // Divider
+        HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
         // Divider and Summary Section
         SummarySection(totalCost = totalCost)
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         // Order Button
         Button(
@@ -99,9 +97,11 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
 
             },
             modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                .fillMaxWidth().height(80.dp)
+                .padding(vertical = 16.dp, horizontal = 30.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF5722)
+            ),
             enabled = !isLoading // Désactive le bouton lorsqu'il est en cours de chargement
         ) {
             if (isLoading) {
@@ -111,7 +111,7 @@ fun CartScreen(viewModel: CartViewModel, navController: NavController) {
                     strokeWidth = 2.dp
                 )
             } else {
-                Text("Order", color = MaterialTheme.colorScheme.onPrimary)
+                Text(text = "Order", color = Color.White, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.titleMedium)
             }
         }
     }
@@ -129,7 +129,12 @@ fun CartItemRow(
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardColors(
+            containerColor = Color.White,
+            contentColor = Color.Unspecified,
+            disabledContainerColor = Color.Unspecified,
+            disabledContentColor = Color.Unspecified
+        ),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

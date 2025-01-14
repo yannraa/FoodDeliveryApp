@@ -1,6 +1,7 @@
 package com.example.tdm.ui.screens.restaurants
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -10,9 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tdm.data.model.CartItem
 import com.example.tdm.ui.screens.cart.CartViewModel
@@ -65,47 +69,43 @@ fun ItemDetailsScreen(
     }
 
     // Contenu principal
-    Surface(
+    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background) // Couleur de fond : #F2F2F1
+            .fillMaxSize().background(color = Color(0xffECECE3))
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .fillMaxSize().padding(12.dp)
         ) {
             // Titre "Option" avec bouton retour
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
-                    onClick = { navController.popBackStack() },
-                    colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
+                IconButton(onClick = {navController.popBackStack()}) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                 }
-                Text(
-                    text = "Option",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.width(48.dp)) // Placeholder pour équilibrer la ligne
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Options", style = MaterialTheme.typography.headlineSmall, color = Color.Black)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Carte avec détails de l'item
             Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                modifier = Modifier.fillMaxWidth().shadow(
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(15.dp),
+                    true,
+                    Color.DarkGray,
+                    Color.Gray
+                ),
+                colors = CardColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Unspecified,
+                    disabledContainerColor = Color.Unspecified,
+                    disabledContentColor = Color.Unspecified
+                ),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
@@ -117,11 +117,12 @@ fun ItemDetailsScreen(
                     Text(
                         text = "$${"%.2f".format(itemPrice)}",
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.SemiBold,
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "Eggs, 1G Meat, Lettuce, Onion, American Cheese.",
+                        text = "Eggs, 1G Meat, Lettuce, Onion, American Cheese.", // deviens un champs
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -130,62 +131,114 @@ fun ItemDetailsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Section quantité
-            Text(
-                text = "Quantity",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                IconButton(
-                    onClick = { if (quantity > 1) quantity-- },
-                    colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
-                ) {
-                    Text("-", style = MaterialTheme.typography.titleLarge)
-                }
-                Text(
-                    text = quantity.toString(),
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    color = MaterialTheme.colorScheme.onBackground
+            Card(
+
+                colors = CardColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Unspecified,
+                    disabledContainerColor = Color.Unspecified,
+                    disabledContentColor = Color.Unspecified
+                ),
+                modifier = Modifier.shadow(
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(15.dp),
+                    true,
+                    Color.DarkGray,
+                    Color.Gray
                 )
-                IconButton(
-                    onClick = { quantity++ },
-                    colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+            ) {
+                // Section pour la quantité
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("+", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "Quantity",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(5.dp)
+                            .background(Color(0xffECECE3), shape = RoundedCornerShape(30))
+                    ) {
+                        IconButton(
+                            onClick = { if (quantity > 1) quantity-- },
+                            colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+                        ) {
+                            Text("—", fontSize = 25.sp)
+                        }
+                        Text(
+                            text = quantity.toString(),
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        IconButton(
+                            onClick = { quantity++ },
+                            colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+                        ) {
+                            Text("+", fontSize = 25.sp)
+                        }
+                    }
                 }
+
             }
 
+
+
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Champ pour les notes
-            Text(
-                text = "Notes",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            OutlinedTextField(
-                value = notes,
-                onValueChange = { notes = it },
-                placeholder = { Text("Do you have something to say to the restaurant?") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = MaterialTheme.colorScheme.primary,
-                    cursorColor = MaterialTheme.colorScheme.primary
+            Card(
+
+                colors = CardColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Unspecified,
+                    disabledContainerColor = Color.Unspecified,
+                    disabledContentColor = Color.Unspecified
+                ),
+                modifier = Modifier.shadow(
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(15.dp),
+                    true,
+                    Color.DarkGray,
+                    Color.Gray
                 )
-            )
+            ) {
 
-            Spacer(modifier = Modifier.height(24.dp))
+            }
+            Column() {
+
+                // Notes
+                Text(
+                    "Notes", style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(start = 20.dp), fontWeight = FontWeight.Bold
+                )
+                TextField(
+                    value = notes,
+                    onValueChange = {notes =it},
+                    placeholder = { Text("Do you have something to say to the restaurant?") },
+                    modifier = Modifier
+                        .fillMaxWidth().padding(top = 8.dp).shadow(
+                            elevation = 10.dp,
+                            shape = RoundedCornerShape(15.dp),
+                            true,
+                            Color.DarkGray,
+                            Color.Gray
+                        )
+                        .height(170.dp),
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                    ),
+                    shape = RoundedCornerShape(15.dp)
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
 
             // Bouton Ajouter au panier
             Button(
@@ -204,11 +257,18 @@ fun ItemDetailsScreen(
                     navController.popBackStack()
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    .fillMaxWidth().height(80.dp)
+                    .padding(vertical = 16.dp, horizontal = 30.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFF5722)
+                )
             ) {
-                Text("Add to Cart", color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    "Add to Cart",
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
     }
