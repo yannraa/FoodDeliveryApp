@@ -63,7 +63,9 @@ fun HomeScreen(
     }
 
     if (isLoading) {
-        CircularProgressIndicator(modifier = Modifier.fillMaxSize())
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
     } else if (error != null) {
         Text(
             text = error ?: "Unknown error",
@@ -310,16 +312,16 @@ fun RestaurantNearbyList(
 fun RestaurantNearbyCard(restaurant: Restaurant) {
     Card(
 
-            shape = RoundedCornerShape(10),
-            colors = CardColors(
-                containerColor = Color.White,
-                contentColor = Color.Unspecified,
-                disabledContainerColor = Color.Unspecified,
-                disabledContentColor =Color.Unspecified
-            ),
-            modifier = Modifier.size(width = 185.dp, height = 195.dp),
+        shape = RoundedCornerShape(10),
+        colors = CardColors(
+            containerColor = Color.White,
+            contentColor = Color.Unspecified,
+            disabledContainerColor = Color.Unspecified,
+            disabledContentColor =Color.Unspecified
+        ),
+        modifier = Modifier.size(width = 185.dp, height = 195.dp),
 
-    ) {
+        ) {
         Column {
             Image(
                 painter = rememberAsyncImagePainter(restaurant.imageUrl),

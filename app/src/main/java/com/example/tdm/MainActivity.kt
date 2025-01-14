@@ -30,6 +30,10 @@ class MainActivity : ComponentActivity() {
         apiService = apiService
     ) }
 
+    private val addressRepository by lazy { AddressRepository(
+        api = apiService
+    ) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +66,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         authRepository = authRepository,
                         restaurantRepository = restaurantRepository,
+                        addressRepository = addressRepository,
                         orderRepository = orderRepository,
                         modifier = Modifier.padding(paddingValues).background(color = Color(0xffECECE3))
 

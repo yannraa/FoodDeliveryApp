@@ -27,9 +27,12 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
     val factory = CartViewModelFactory(
         orderRepository
     )
+
     val cartViewModel: CartViewModel = viewModel(factory = factory)
 
+
     NavHost(navController = navController, startDestination = "login", modifier = modifier) {
+
         composable("home") {
             HomeScreen(
                 navController = navController,
