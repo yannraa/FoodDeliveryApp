@@ -30,11 +30,6 @@ class MainActivity : ComponentActivity() {
         apiService = apiService
     ) }
 
-    private val addressRepository by lazy { AddressRepository(
-        api = apiService
-    ) }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -57,16 +52,13 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        if (navController.currentDestination?.route != "login") {
-                            BottomNavigationBar(navController = navController)
-                        }
+                        BottomNavigationBar(navController = navController)
                     }
                 ) { paddingValues ->
                     AppNavigation(
                         navController = navController,
                         authRepository = authRepository,
                         restaurantRepository = restaurantRepository,
-                        addressRepository = addressRepository,
                         orderRepository = orderRepository,
                         modifier = Modifier.padding(paddingValues).background(color = Color(0xffECECE3))
 

@@ -10,27 +10,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,6 +36,8 @@ import com.example.tdm.data.model.MenuItem
 import com.example.tdm.data.model.Restaurant
 import com.example.tdm.data.repository.RestaurantRepository
 import com.example.tdm.ui.components.*
+import com.example.tdm.utils.TokenManager
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -82,25 +75,30 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Search Bar
-            SearchBar()
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Categories Section
-            CategorySection()
+            SearchBar(
+                navController = navController,
+                restaurants = restaurants
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Restaurant Nearby
-            SectionTitle(title = "Restaurant Nearby", onViewAllClick = { /* TODO: View all */ })
+            SectionTitle(title = "Restaurant Nearby", onViewAllClick = {
+                navController.currentBackStackEntry?.savedStateHandle?.set("restaurants", restaurants)
+                navController.navigate("nearby")
+            })
             RestaurantNearbyList(
                 nearbyRestaurants = restaurants,
+                navController = navController
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Popular Restaurants
-            SectionTitle(title = "Popular Restaurant", onViewAllClick = { /* TODO: View all */ })
+            SectionTitle(title = "Popular Restaurant", onViewAllClick = {
+                navController.currentBackStackEntry?.savedStateHandle?.set("restaurants", restaurants)
+                navController.navigate("popular")
+            })
             PopularRestaurantList(
                 popularRestaurants = restaurants,
                 navController = navController,
@@ -113,6 +111,7 @@ fun HomeScreen(
 fun HeaderSection(
     navController: NavController
 ) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,10 +120,21 @@ fun HeaderSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Menu Icon on the left
+        val coroutineScope = rememberCoroutineScope()
+
         Icon(
-            imageVector = Icons.Default.Menu, // Replace with your menu icon
-            contentDescription = "Menu",
-            modifier = Modifier.size(30.dp)
+            imageVector = Icons.Default.Close,
+            contentDescription = "Logout",
+            modifier = Modifier
+                .size(30.dp)
+                .clickable {
+                    coroutineScope.launch {
+                        TokenManager.clearToken(context)
+                        navController.navigate("login") {
+                            popUpTo(0) // Supprime toutes les destinations précédentes
+                        }
+                    }
+                }
         )
 
         // Address Section in the center
@@ -170,112 +180,50 @@ fun HeaderSection(
             Icon(
                 imageVector = Icons.Outlined.ShoppingCart, // Replace with your cart icon
                 contentDescription = "Cart",
-                modifier = Modifier.size(30.dp),
-
+                modifier = Modifier.size(30.dp).clickable { navController.navigate("cart") },
                 )
 
             // Badge for the cart count
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(16.dp)
-                    .offset(x = 4.dp, y = (-4).dp)
-                    .background(
-                        color = Color.White,
-                        shape = CircleShape
-                    )
-                    .align(Alignment.TopEnd)
-
-            ) {
-                Text(
-                    text = "01",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = Color.Black,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold
-                    ),
-                    textAlign = TextAlign.Center
-                )
-            }
         }
     }
 }
 
 @Composable
-fun SearchBar() {
-    var searchQuery by remember { mutableStateOf("") }
-
+fun SearchBar(
+    navController: NavController,
+    restaurants: List<Restaurant>
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .padding(end = 5.dp),
+            .padding(end = 5.dp)
+            .clickable {
+                navController.currentBackStackEntry?.savedStateHandle?.set("restaurants", restaurants)
+                navController.navigate("search")
+            }
+            .background(Color.White, RoundedCornerShape(15.dp)) // Add background with rounded corners
+            .padding(horizontal = 16.dp, vertical = 12.dp), // Add padding inside the clickable area
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Search TextField
-        TextField(
-            value = searchQuery,
-            onValueChange = {searchQuery = it},
-            placeholder = { Text("Search for food") },
-            modifier = Modifier
-                .weight(1f) // Use weight to make TextField take all available space
-                .padding(end = 5.dp),// Add space between TextField and Filter Icon
-
-            colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.White,
-                focusedContainerColor = Color.White,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-            ),
-
-            shape = RoundedCornerShape(15.dp), // Add rounded corners
-            singleLine = true // Ensure the TextField stays on a single line
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search Icon",
+            tint = Color.Gray,
+            modifier = Modifier.size(20.dp)
         )
-        // Filter Icon
-        Box(
-            modifier = Modifier
-                .size(55.dp)// Match the height of the TextField
-                .background(color = Color.White, shape = RoundedCornerShape(25)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Search Icon",
 
-                )
-        }
-    }
-}
+        Spacer(modifier = Modifier.width(8.dp))
 
-@Composable
-fun CategoryChip(category: String) {
-    Card(
-        //modifier = Modifier.clickable { navController.navigate(Destination.Search.getDestination(category)) },
-        colors = CardColors(
-            containerColor = Color.White,
-            contentColor = Color.Unspecified,
-            disabledContainerColor = Color.Unspecified,
-            disabledContentColor =Color.Unspecified
-        ),
-        shape = RoundedCornerShape(30.dp),
-
-        ) {
         Text(
-            text = category,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+            text = "Search for food",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Gray,
+            modifier = Modifier.weight(1f) // Ensures the text takes up the remaining space
         )
     }
 }
 
-@Composable
-fun CategorySection() {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        items(listOf("Italian", "Traditional", "Asian", "Mexican", "FastFood","Pizza")) { category ->
-            CategoryChip(category)
-        }
-    }
-}
 
 @Composable
 fun SectionTitle(title: String, onViewAllClick: () -> Unit) {
@@ -296,19 +244,20 @@ fun SectionTitle(title: String, onViewAllClick: () -> Unit) {
 
 @Composable
 fun RestaurantNearbyList(
-    nearbyRestaurants: List<Restaurant>
+    nearbyRestaurants: List<Restaurant>,
+    navController: NavController
 ) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(nearbyRestaurants) { restaurant ->
-            RestaurantNearbyCard(restaurant)
+            RestaurantNearbyCard(restaurant, navController)
         }
     }
 }
 
 @Composable
-fun RestaurantNearbyCard(restaurant: Restaurant) {
+fun RestaurantNearbyCard(restaurant: Restaurant, navController: NavController) {
     Card(
 
         shape = RoundedCornerShape(10),
@@ -318,7 +267,10 @@ fun RestaurantNearbyCard(restaurant: Restaurant) {
             disabledContainerColor = Color.Unspecified,
             disabledContentColor =Color.Unspecified
         ),
-        modifier = Modifier.size(width = 185.dp, height = 195.dp),
+        modifier = Modifier.size(width = 185.dp, height = 195.dp).clickable {
+            navController.currentBackStackEntry?.savedStateHandle?.set("restaurant", restaurant)
+            navController.navigate("restaurantDetails")
+        },
 
         ) {
         Column {

@@ -12,14 +12,19 @@ import androidx.navigation.navArgument
 import com.example.tdm.data.model.OrderStatus
 import com.example.tdm.data.model.Restaurant
 import com.example.tdm.data.repository.*
+import com.example.tdm.ui.screens.Lists.PopularRestaurantsScreen
+import com.example.tdm.ui.screens.Lists.ScreenNearbyRestaurants
 import com.example.tdm.ui.screens.cart.CartScreen
 import com.example.tdm.ui.screens.cart.CartViewModel
 import com.example.tdm.ui.screens.cart.CartViewModelFactory
 import com.example.tdm.ui.screens.home.HomeScreen
+import com.example.tdm.ui.screens.Lists.SearchScreen
 import com.example.tdm.ui.screens.login.LoginScreen
 import com.example.tdm.ui.screens.orders.OrdersScreen
 import com.example.tdm.ui.screens.signup.SignUpScreen
 import com.example.tdm.ui.screens.restaurants.*
+import com.example.tdm.ui.screens.reviews.ReviewsScreen
+import com.example.tdm.ui.screens.splash.SplashScreen
 import com.example.tdm.ui.screens.tracking.OrderTrackingScreen
 
 @Composable
@@ -31,7 +36,23 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
     val cartViewModel: CartViewModel = viewModel(factory = factory)
 
 
-    NavHost(navController = navController, startDestination = "login", modifier = modifier) {
+    NavHost(navController = navController, startDestination = "splash", modifier = modifier) {
+        composable("splash") {
+            SplashScreen(navController = navController)
+        }
+
+        composable("reviews") {
+            ReviewsScreen(navController = navController)
+        }
+
+        composable("search") {
+            val restaurants = navController.previousBackStackEntry
+                ?.savedStateHandle
+                ?.get<List<Restaurant>>("restaurants") ?: emptyList()
+
+            SearchScreen(navController = navController, nearbyRestaurants = restaurants)
+        }
+
 
         composable("home") {
             HomeScreen(
@@ -41,6 +62,23 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
         composable("order") {
             OrdersScreen(navController = navController, repository = orderRepository)
+        }
+
+        composable("nearby") {
+            val restaurants = navController.previousBackStackEntry
+            ?.savedStateHandle
+                ?.get<List<Restaurant>>("restaurants") ?: emptyList()
+
+            ScreenNearbyRestaurants(navController = navController, nearbyRestaurants = restaurants)
+        }
+
+        composable("popular") {
+            val restaurants = navController.previousBackStackEntry
+            ?.savedStateHandle
+                ?.get<List<Restaurant>>("restaurants") ?: emptyList()
+
+            PopularRestaurantsScreen(navController = navController, popularRestaurants = restaurants)
+
         }
         // Écran d'inscription
         composable("signup") {

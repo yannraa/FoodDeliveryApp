@@ -39,7 +39,6 @@ import com.example.tdm.data.model.Restaurant
 
 @Composable
 fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController) {
-    val IsOpen : Boolean = false
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -83,11 +82,11 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Gastro · ${restaurant.address}",
+                text = "${restaurant.cuisine} · ${restaurant.address}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.DarkGray
             )
-            if (IsOpen) {
+            if (restaurant.open) {
                 Text(
                     text = "Open",
                     style = MaterialTheme.typography.bodyMedium,
@@ -122,7 +121,9 @@ fun RestaurantDetailsScreen(restaurant: Restaurant, navController: NavController
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color(0xFFFF5722), // Orange for "Reviews"
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.clickable { /* Navigate to reviews */ }
+                    modifier = Modifier.clickable {
+                        navController.navigate("reviews")
+                    }
 
                 )
             }

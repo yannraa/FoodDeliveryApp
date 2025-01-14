@@ -12,6 +12,7 @@ private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 object TokenManager {
     private val TOKEN_KEY = stringPreferencesKey("auth_token")
 
+
     suspend fun saveToken(context: Context, token: String) {
         context.dataStore.edit { preferences ->
             preferences[TOKEN_KEY] = token

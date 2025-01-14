@@ -14,8 +14,10 @@ data class RestaurantData(
     val documentId: String, // Identifiant unique Strapi
     val name: String,
     val address: String,
+    val cuisine: String,
     val imageUrl: String,
     val distance: String,
+    val open: Boolean,
     val rating: Float,
     val reviewCount: Int,
     val contact: String,

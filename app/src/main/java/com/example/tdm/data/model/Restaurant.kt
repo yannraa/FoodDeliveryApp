@@ -14,6 +14,8 @@ data class Restaurant(
     val name: String,
     val address: String,
     val imageUrl: String, // URL de l'image
+    val cuisine: String, // Type de cuisine
+    val open: Boolean,
     val distance: String,
     val rating: Float,
     val reviewCount: Int,

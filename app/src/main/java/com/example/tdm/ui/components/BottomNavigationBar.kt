@@ -17,8 +17,6 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         BottomNavItem("Home", "home", R.drawable.ic_home),
         BottomNavItem("Order", "order", R.drawable.ic_order),
-        BottomNavItem("Notif", "notif", R.drawable.ic_notif),
-        BottomNavItem("Tracking", "tracking", R.drawable.ic_tracking)
     )
 
     // Barre de navigation

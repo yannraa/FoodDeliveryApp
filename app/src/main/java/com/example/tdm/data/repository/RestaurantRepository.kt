@@ -25,6 +25,8 @@ class RestaurantRepository(private val api: ApiService) {
                     reviewCount = restaurantData.reviewCount ?: 0,
                     contact = restaurantData.contact ?: "No contact",
                     email = restaurantData.email ?: "No email",
+                    open = restaurantData.open ?: false,
+                    cuisine = restaurantData.cuisine ?: "Uncategorized",
                     menu = restaurantData.menu?.mapNotNull { menuItemData ->
                         try {
                             MenuItem(
